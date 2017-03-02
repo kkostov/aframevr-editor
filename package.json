@@ -1,0 +1,27 @@
+{
+    "name": "avr-editor",
+    "version": "0.1.0",
+    "description": "Desktop editor for A-Frame",
+    "main": "src/index.js",
+    "author": "Konstantin Kostov <me@kvkostov.eu>",
+    "license": "MIT",
+    "scripts": {
+        "start": "electron ."
+    },
+    "devDependencies": {
+        "electron": "^1.4.15",
+        "eslint": "^3.16.1",
+        "eslint-config-airbnb-base": "^11.1.0",
+        "eslint-plugin-import": "^2.2.0"
+    },
+    "eslintConfig": {
+        "extends": "airbnb-base",
+        "plugins": [
+            "import"
+        ],
+        "rules": {
+          "semi": ["error", "never"],
+          "indent": ["error", 4]
+        }
+    }
+}
