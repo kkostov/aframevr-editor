@@ -19,9 +19,14 @@
         "plugins": [
             "import"
         ],
+        "env": {
+          "browser": true
+        },
         "rules": {
           "semi": ["error", "never"],
-          "indent": ["error", 4]
+          "indent": ["error", 4],
+          "import/no-extraneous-dependencies": ["off"],
+          "global-require": ["off"]
         }
     }
 }

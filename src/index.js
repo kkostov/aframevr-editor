@@ -1,4 +1,3 @@
-/* eslint import/no-extraneous-dependencies: ["off"] */
 const electron = require('electron')
 const path = require('path')
 const url = require('url')
@@ -9,9 +8,10 @@ const BrowserWindow = electron.BrowserWindow
 let mainWindow
 
 function createWindow() {
+    const screenInfo = require('./screen')
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: screenInfo.size.width,
+        height: screenInfo.size.height,
     })
 
     mainWindow.loadURL(url.format({
