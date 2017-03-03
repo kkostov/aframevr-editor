@@ -7,6 +7,17 @@ const Menu = electron.Menu
 const app = electron.app
 
 const template = [{
+    label: 'File',
+    submenu: [{
+        label: 'New scene',
+        accelerator: 'CmdOrCtrl+N',
+        click(item, focusedWindow) {
+            if (focusedWindow) {
+                loader.loadNewScene(focusedWindow)
+            }
+        },
+    }],
+}, {
     label: 'Examples',
     submenu: examples.map(example => ({
         label: example.label,

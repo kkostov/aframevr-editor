@@ -1,3 +1,4 @@
+const files = require('./files')
 
 // loads a scene from a url
 function loadUrl(focusedWindow, url) {
@@ -14,7 +15,14 @@ function injectInspector(focusedWindow) {
     contents.executeJavaScript('window.postMessage(\'INJECT_AFRAME_INSPECTOR\', \'*\');')
 }
 
+// creates an blank html file
+function loadNewScene(focusedWindow) {
+  // the blank file is essentially the starting url
+    focusedWindow.loadURL(files.getStaticFileUrl('inspector.html'))
+}
+
 module.exports = {
     loadUrl,
     injectInspector,
+    loadNewScene,
 }
