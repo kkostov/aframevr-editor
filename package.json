@@ -16,20 +16,11 @@
             "browser": true
         },
         "parserOptions": {
-            "ecmaFeatures": {
-                "jsx": true
-            }
+            "ecmaFeatures": {}
         },
         "rules": {
-            "semi": [
-                "error",
-                "never"
-            ],
-            "indent": [
-                "error",
-                4
-            ],
-            "react/jsx-uses-react": "error",
+            "semi": ["error", "never"],
+            "indent": ["error", 4],
             "class-methods-use-this": "off",
             "import/no-extraneous-dependencies": [
                 "off"
@@ -37,13 +28,18 @@
             "global-require": [
                 "off"
             ],
-            "func-names": ["warn", "never"]
+            "func-names": [
+                "warn",
+                "never"
+            ]
         }
     },
-    "dependencies": {},
+    "dependencies": {
+    },
     "devDependencies": {
         "electron": "^1.4.15",
         "eslint": "^3.16.1",
-        "eslint-config-airbnb-base": "^11.1.0"
+        "eslint-config-airbnb-base": "^11.1.0",
+        "eslint-plugin-import": "^2.2.0"
     }
 }
