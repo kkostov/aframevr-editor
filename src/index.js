@@ -1,6 +1,5 @@
 const electron = require('electron')
-const path = require('path')
-const url = require('url')
+const files = require('./files')
 
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
@@ -8,17 +7,14 @@ const BrowserWindow = electron.BrowserWindow
 let mainWindow
 
 function createWindow() {
+    // screen information is only available after the app ready event
     const screenInfo = require('./screen')
     mainWindow = new BrowserWindow({
         width: screenInfo.size.width,
         height: screenInfo.size.height,
     })
 
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
-        protocol: 'file:',
-        slashes: true,
-    }))
+    mainWindow.loadURL(files.getStaticFileUrl('inspector.html'))
 
     mainWindow.on('closed', () => {
         mainWindow = null

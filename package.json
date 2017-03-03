@@ -8,25 +8,41 @@
     "scripts": {
         "start": "electron ."
     },
+    "eslintConfig": {
+        "extends": [
+            "airbnb-base"
+        ],
+        "env": {
+            "browser": true
+        },
+        "parserOptions": {
+            "ecmaFeatures": {
+                "jsx": true
+            }
+        },
+        "rules": {
+            "semi": [
+                "error",
+                "never"
+            ],
+            "indent": [
+                "error",
+                4
+            ],
+            "react/jsx-uses-react": "error",
+            "class-methods-use-this": "off",
+            "import/no-extraneous-dependencies": [
+                "off"
+            ],
+            "global-require": [
+                "off"
+            ]
+        }
+    },
+    "dependencies": {},
     "devDependencies": {
         "electron": "^1.4.15",
         "eslint": "^3.16.1",
-        "eslint-config-airbnb-base": "^11.1.0",
-        "eslint-plugin-import": "^2.2.0"
-    },
-    "eslintConfig": {
-        "extends": "airbnb-base",
-        "plugins": [
-            "import"
-        ],
-        "env": {
-          "browser": true
-        },
-        "rules": {
-          "semi": ["error", "never"],
-          "indent": ["error", 4],
-          "import/no-extraneous-dependencies": ["off"],
-          "global-require": ["off"]
-        }
+        "eslint-config-airbnb-base": "^11.1.0"
     }
 }
