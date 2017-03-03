@@ -16,6 +16,14 @@ const template = [{
                 loader.loadNewScene(focusedWindow)
             }
         },
+    }, {
+        label: 'Open scene',
+        accelerator: 'CmdOrCtrl+O',
+        click(item, focusedWindow) {
+            if (focusedWindow) {
+                loader.openScene(focusedWindow)
+            }
+        },
     }],
 }, {
     label: 'Examples',

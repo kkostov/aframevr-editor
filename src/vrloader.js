@@ -1,3 +1,5 @@
+const dialog = require('electron').dialog
+
 const files = require('./files')
 
 // loads a scene from a url
@@ -17,12 +19,21 @@ function injectInspector(focusedWindow) {
 
 // creates an blank html file
 function loadNewScene(focusedWindow) {
-  // the blank file is essentially the starting url
+    // the blank file is essentially the starting url
+    // this can be made with integration using the angle tool
     focusedWindow.loadURL(files.getStaticFileUrl('inspector.html'))
+}
+
+function openScene(focusedWindow) {
+    // open a scene from the file system
+    const filePath = dialog.showOpenDialog({ properties: ['openFile'] })
+    const fileUrl = `file://${filePath}`
+    focusedWindow.loadURL(fileUrl)
 }
 
 module.exports = {
     loadUrl,
     injectInspector,
     loadNewScene,
+    openScene,
 }
