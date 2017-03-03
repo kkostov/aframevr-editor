@@ -1,10 +1,23 @@
 const electron = require('electron')
+const loader = require('./vrloader')
+const examples = require('./vrexamples')
 
 const BrowserWindow = electron.BrowserWindow
 const Menu = electron.Menu
 const app = electron.app
 
 const template = [{
+    label: 'Examples',
+    submenu: examples.map(example => ({
+        label: example.label,
+        click(item, focusedWindow) {
+            if (focusedWindow) {
+                loader.loadUrl(focusedWindow, example.url)
+            }
+        },
+    })),
+},
+{
     label: 'Edit',
     submenu: [{
         label: 'Undo',
@@ -40,8 +53,8 @@ const template = [{
         accelerator: 'CmdOrCtrl+R',
         click(item, focusedWindow) {
             if (focusedWindow) {
-        // on reload, start fresh and close any old
-        // open secondary windows
+                    // on reload, start fresh and close any old
+                    // open secondary windows
                 if (focusedWindow.id === 1) {
                     BrowserWindow.getAllWindows().forEach((win) => {
                         if (win.id > 1) {
@@ -76,6 +89,13 @@ const template = [{
         click(item, focusedWindow) {
             if (focusedWindow) {
                 focusedWindow.toggleDevTools()
+            }
+        },
+    }, {
+        label: 'Toggle Aframe Inspector',
+        click(item, focusedWindow) {
+            if (focusedWindow) {
+                loader.injectInspector(focusedWindow)
             }
         },
     }, {
@@ -125,7 +145,8 @@ const template = [{
             electron.shell.openExternal('http://electron.atom.io')
         },
     }],
-}]
+},
+]
 
 function addUpdateMenuItems(items, position) {
     if (process.mas) return
@@ -212,7 +233,7 @@ if (process.platform === 'darwin') {
         }],
     })
 
-  // Window menu.
+    // Window menu.
     template[3].submenu.push({
         type: 'separator',
     }, {
