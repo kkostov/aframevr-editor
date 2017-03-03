@@ -33,6 +33,9 @@ function activate() {
     }
 }
 
+// setup menu items
+require('./menus')
+
 app.on('ready', createWindow)
 app.on('window-all-closed', quit)
 app.on('activate', activate)

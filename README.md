@@ -1,4 +1,4 @@
-## A-Frame Editor ##
+## Aframevr Editor ##
 
 This is an experiment, embedding the aframevr inspector inside an electron app.
 

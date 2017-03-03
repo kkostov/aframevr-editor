@@ -1,5 +1,5 @@
 {
-    "name": "avr-editor",
+    "name": "aframevr-editor",
     "version": "0.1.0",
     "description": "Desktop editor for A-Frame",
     "main": "src/index.js",
@@ -36,7 +36,8 @@
             ],
             "global-require": [
                 "off"
-            ]
+            ],
+            "func-names": ["warn", "never"]
         }
     },
     "dependencies": {},
