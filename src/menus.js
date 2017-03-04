@@ -81,7 +81,7 @@ const template = [{
             }
         },
     }, {
-        label: 'Toggle Aframe Inspector',
+        label: 'Open Aframe Inspector',
         click(item, focusedWindow) {
             if (focusedWindow) {
                 loader.injectInspector(focusedWindow)

@@ -17,7 +17,7 @@ function injectInspector(focusedWindow) {
     contents.executeJavaScript('window.postMessage(\'INJECT_AFRAME_INSPECTOR\', \'*\');')
 }
 
-// creates an blank html file
+// creates a blank html file
 function loadNewScene(focusedWindow) {
     // the blank file is essentially the starting url
     // this can be made with integration using the angle tool
