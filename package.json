@@ -6,14 +6,20 @@
     "author": "Konstantin Kostov <me@kvkostov.eu>",
     "license": "MIT",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "test": "jest",
+        "test-watch": "jest --watch"
     },
     "eslintConfig": {
+        "plugins": [
+            "jest"
+        ],
         "extends": [
             "airbnb-base"
         ],
         "env": {
-            "browser": true
+            "browser": true,
+            "jest/globals": true
         },
         "parserOptions": {
             "ecmaFeatures": {}
@@ -25,7 +31,7 @@
             ],
             "indent": [
                 "error",
-                4
+                2
             ],
             "class-methods-use-this": "off",
             "import/no-extraneous-dependencies": [
@@ -40,12 +46,15 @@
             ]
         }
     },
-    "dependencies": {},
+    "dependencies": {
+        "electron-config": "^0.2.1"
+    },
     "devDependencies": {
         "electron": "^1.4.15",
         "eslint": "^3.16.1",
         "eslint-config-airbnb-base": "^11.1.0",
         "eslint-plugin-import": "^2.2.0",
+        "eslint-plugin-jest": "^19.0.1",
         "jest": "^19.0.2"
     }
 }

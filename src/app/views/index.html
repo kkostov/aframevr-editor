@@ -2,81 +2,35 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="../css/photon.min.css">
-    <title>AVR Editor</title>
+  <meta charset="utf-8">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../css/photon.min.css">
+  <title>AVR Editor</title>
 </head>
 
 <body>
-    <div class="window">
-        <!-- .toolbar-header sits at the top of your app -->
-        <header class="toolbar toolbar-header">
-            <div class="toolbar-actions">
-                <div class="btn-group">
-                    <button class="btn btn-default">
-      <span class="icon icon-home"></span>
-    </button>
-                    <button class="btn btn-default">
-      <span class="icon icon-folder"></span>
-    </button>
-                    <button class="btn btn-default active">
-      <span class="icon icon-cloud"></span>
-    </button>
-                    <button class="btn btn-default">
-      <span class="icon icon-popup"></span>
-    </button>
-                    <button class="btn btn-default">
-      <span class="icon icon-shuffle"></span>
-    </button>
-                </div>
-
-                <button class="btn btn-default">
-    <span class="icon icon-home icon-text"></span>
-    Filters
-  </button>
-
-                <button class="btn btn-default btn-dropdown pull-right">
-    <span class="icon icon-megaphone"></span>
-  </button>
-            </div>
-        </header>
-        <!-- Your app's content goes inside .window-content -->
-        <div class="window-content">
-            <div class="pane-group">
-                <div class="pane pane-sm sidebar">
-                    <nav class="nav-group">
-                        <h5 class="nav-group-title">Favorites</h5>
-                        <span class="nav-group-item">
-              <span class="icon icon-home"></span> connors
-                        </span>
-                        <span class="nav-group-item active">
-              <span class="icon icon-light-up"></span> Photon
-                        </span>
-                        <span class="nav-group-item">
-              <span class="icon icon-download"></span> Downloads
-                        </span>
-                        <span class="nav-group-item">
-              <span class="icon icon-folder"></span> Documents
-                        </span>
-                        <span class="nav-group-item">
-              <span class="icon icon-window"></span> Applications
-                        </span>
-                        <span class="nav-group-item">
-              <span class="icon icon-signal"></span> AirDrop
-                        </span>
-                        <span class="nav-group-item">
-              <span class="icon icon-monitor"></span> Desktop
-                        </span>
-                    </nav>
-                </div>
-
-                <div class="pane">
-                    <p>foo - bar</p>
-                </div>
-            </div>
+  <div class="window">
+    <!-- .toolbar-header sits at the top of your app -->
+    <header class="toolbar toolbar-header">
+      <div class="toolbar-actions">
+        <div class="btn-group">
+          <button id="toggleFileBrowser" class="btn btn-default" title="Toggle file browser">
+                      <span class="icon icon-folder"></span>
+                    </button>
         </div>
+      </div>
+    </header>
+    <!-- Your app's content goes inside .window-content -->
+    <div class="window-content">
+      <div class="pane-group">
+
+        <div class="pane">
+          <p>foo - bar</p>
+        </div>
+      </div>
     </div>
+  </div>
+  <script src="./browser.js"></script>
 </body>
 
 </html>
