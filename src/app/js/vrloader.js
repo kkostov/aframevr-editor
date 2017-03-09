@@ -21,7 +21,7 @@ function injectInspector(focusedWindow) {
 function loadNewScene(focusedWindow) {
     // the blank file is essentially the starting url
     // this can be made with integration using the angle tool
-    focusedWindow.loadURL(files.getStaticFileUrl('inspector.html'))
+    focusedWindow.loadURL(files.getViewUrl('inspector.html'))
 }
 
 function openScene(focusedWindow) {

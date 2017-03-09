@@ -14,7 +14,7 @@ function createWindow() {
         height: screenInfo.size.height,
     })
 
-    mainWindow.loadURL(files.getStaticFileUrl('inspector.html'))
+    mainWindow.loadURL(files.getViewUrl('index.html'))
 
     mainWindow.on('closed', () => {
         mainWindow = null
