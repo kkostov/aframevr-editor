@@ -47,6 +47,7 @@
         }
     },
     "dependencies": {
+        "aframe": "^0.5.0",
         "electron-config": "^0.2.1"
     },
     "devDependencies": {

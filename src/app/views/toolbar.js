@@ -3,6 +3,20 @@ const Config = require('electron-config')
 
 const config = new Config()
 
+const editors = []
+
+/** loads the source scene into a new webview as a child of the given targetElement */
+const openNewEditor = (source, targetElement) => {
+  const editor = {}
+  editor.id = `editor${editors.length}`
+  editor.src = source
+  const editorHtml = `<webview id="${editor.id}" src="${editor.src}"  style="display:inline-flex; width:100%; height:100%"></webview>`
+  targetElement.insertAdjacentHTML('beforeend', editorHtml)
+  const editorElement = document.getElementById(editor.id)
+  editorElement.addEventListener('did-finish-load', () => {
+    editorElement.getWebContents().executeJavaScript('window.postMessage(\'INJECT_AFRAME_INSPECTOR\', \'*\');')
+  })
+}
 
 const showFileBrowser = () => {
   const fileBrowserTemplate = `
@@ -57,6 +71,16 @@ const initToolbar = () => {
   if (toggleFileBrowserButton) {
     toggleFileBrowserButton.addEventListener('click', handleToggleFilesPane)
   }
+
+  // toolbar - new scene
+  const newSceneButton = document.getElementById('newScene')
+  const handleNewScene = () => {
+    const targetElement = document.querySelector('.pane-group')
+    openNewEditor('../templates/template1.html', targetElement)
+  }
+  if (newSceneButton) {
+    newSceneButton.addEventListener('click', handleNewScene)
+  }
   restoreSettings()
 }
 
@@ -64,4 +88,5 @@ module.exports = {
   initToolbar,
   showFileBrowser,
   hideFileBrowser,
+  openNewEditor,
 }

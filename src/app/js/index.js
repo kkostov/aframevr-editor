@@ -8,29 +8,29 @@ let mainWindow
 
 function createWindow() {
     // screen information is only available after the app ready event
-    const screenInfo = require('./screen')
-    mainWindow = new BrowserWindow({
-        width: screenInfo.size.width,
-        height: screenInfo.size.height,
-    })
+  const screenInfo = require('./screen')
+  mainWindow = new BrowserWindow({
+    width: screenInfo.size.width,
+    height: screenInfo.size.height,
+  })
 
-    mainWindow.loadURL(files.getViewUrl('index.html'))
+  mainWindow.loadURL(files.getViewUrl('index.html'))
 
-    mainWindow.on('closed', () => {
-        mainWindow = null
-    })
+  mainWindow.on('closed', () => {
+    mainWindow = null
+  })
 }
 
 function quit() {
-    if (process.platform !== 'darwin') {
-        app.quit()
-    }
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
 }
 
 function activate() {
-    if (mainWindow === null) {
-        createWindow()
-    }
+  if (mainWindow === null) {
+    createWindow()
+  }
 }
 
 // setup menu items
