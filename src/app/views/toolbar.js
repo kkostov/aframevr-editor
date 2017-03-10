@@ -8,9 +8,8 @@ const showFileBrowser = () => {
   const fileBrowserTemplate = `
       <div id="fileBrowser" class="pane pane-sm sidebar">
         <nav class="nav-group">
-            <h5 class="nav-group-title">Favorites</h5>
-            <span class="nav-group-item"><span class="icon icon-folder"></span> connors</span>
-            <span class="nav-group-item active"><span class="icon icon-light-up"></span> Photon</span>
+            <span class="nav-group-item"><span class="icon icon-down-open"></span> src</span>
+            <span class="nav-group-item"><span class="icon icon-file"></span> main.js</span>
         </nav>
       </div>
       `
