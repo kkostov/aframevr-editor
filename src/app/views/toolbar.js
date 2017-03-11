@@ -1,21 +1,47 @@
 const Config = require('electron-config')
 
-
 const config = new Config()
 
-const editors = []
 
-/** loads the source scene into a new webview as a child of the given targetElement */
-const openNewEditor = (source, targetElement) => {
-  const editor = {}
-  editor.id = `editor${editors.length}`
-  editor.src = source
+const saveEditor = (editorId) => {
+  const webView = document.getElementById(editorId)
+  console.log({ contents: webView.getWebContents() })
+}
+
+/** prompts the user to select a working directory and creates a simple scene */
+const openNewEditor = () => {
+  const app = require('electron').remote
+  const fs = app.require('fs')
+  const path = app.require('path')
+
+  // get the new working directory
+  const dialog = app.dialog
+  const workingDir = dialog.showOpenDialog({ properties: ['openDirectory', 'createDirectory', 'promptToCreate'] })
+
+  if (!workingDir || workingDir.length === 0) {
+    // user canceled
+    return undefined
+  }
+
+  // copy the template to the new working folder
+  const newFile = path.join(workingDir[0], 'index.html')
+  fs.createReadStream(path.join(__dirname, 'template1.html')).pipe(fs.createWriteStream(newFile))
+
+  // load the new file as a scene
+  const targetElement = document.querySelector('.pane-group')
+  const editor = {
+    id: 'editor',
+    src: newFile,
+    workDir: workingDir[0],
+  }
   const editorHtml = `<webview id="${editor.id}" src="${editor.src}"  style="display:inline-flex; width:100%; height:100%"></webview>`
   targetElement.insertAdjacentHTML('beforeend', editorHtml)
   const editorElement = document.getElementById(editor.id)
   editorElement.addEventListener('did-finish-load', () => {
     editorElement.getWebContents().executeJavaScript('window.postMessage(\'INJECT_AFRAME_INSPECTOR\', \'*\');')
   })
+
+  return undefined
 }
 
 const showFileBrowser = () => {
@@ -81,6 +107,16 @@ const initToolbar = () => {
   if (newSceneButton) {
     newSceneButton.addEventListener('click', handleNewScene)
   }
+
+  // toolbar - save scene
+  const saveSceneButton = document.getElementById('saveScene')
+  const handleSaveScene = () => {
+    saveEditor('editor')
+  }
+  if (saveSceneButton) {
+    saveSceneButton.addEventListener('click', handleSaveScene)
+  }
+
   restoreSettings()
 }
 
