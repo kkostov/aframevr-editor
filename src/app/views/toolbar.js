@@ -2,14 +2,10 @@ const Config = require('electron-config')
 
 const config = new Config()
 
-
-const saveEditor = (editorId) => {
-  const webView = document.getElementById(editorId)
-  console.log({ contents: webView.getWebContents() })
-}
+const currentEditor = {}
 
 /** prompts the user to select a working directory and creates a simple scene */
-const openNewEditor = () => {
+const newScene = () => {
   const app = require('electron').remote
   const fs = app.require('fs')
   const path = app.require('path')
@@ -29,19 +25,49 @@ const openNewEditor = () => {
 
   // load the new file as a scene
   const targetElement = document.querySelector('.pane-group')
-  const editor = {
-    id: 'editor',
-    src: newFile,
-    workDir: workingDir[0],
-  }
-  const editorHtml = `<webview id="${editor.id}" src="${editor.src}"  style="display:inline-flex; width:100%; height:100%"></webview>`
+
+  // todo: check if there is already an editor open and prompt to save changes
+  currentEditor.id = 'editor'
+  currentEditor.src = newFile
+  currentEditor.workDir = workingDir[0]
+  const editorHtml = `<webview id="${currentEditor.id}" src="${currentEditor.src}"  style="display:inline-flex; width:100%; height:100%"></webview>`
   targetElement.insertAdjacentHTML('beforeend', editorHtml)
-  const editorElement = document.getElementById(editor.id)
+  const editorElement = document.getElementById(currentEditor.id)
   editorElement.addEventListener('did-finish-load', () => {
     editorElement.getWebContents().executeJavaScript('window.postMessage(\'INJECT_AFRAME_INSPECTOR\', \'*\');')
   })
 
   return undefined
+}
+
+const saveScene = () => {
+  const webView = document.getElementById(currentEditor.id)
+  const exctractSourceFunc = `
+  function extractScene() {
+    const target = document.querySelector("a-scene")
+    if(!target) {
+      return undefined
+    }
+    const wrap = document.createElement("div")
+    wrap.appendChild(target.cloneNode(true))
+    const result = wrap.innerHTML
+    wrap.remove()
+    return result
+  }
+  extractScene()
+  `
+  webView.executeJavaScript(exctractSourceFunc, (result) => {
+    if (!result) {
+      throw new Error('There was problem saving changes. Failed to extract scene source.')
+    }
+
+    const app = require('electron').remote
+    const fs = app.require('fs')
+
+    fs.writeFile(currentEditor.src, result, (err) => {
+      if (err) throw err
+    })
+  })
 }
 
 const showFileBrowser = () => {
@@ -100,21 +126,14 @@ const initToolbar = () => {
 
   // toolbar - new scene
   const newSceneButton = document.getElementById('newScene')
-  const handleNewScene = () => {
-    const targetElement = document.querySelector('.pane-group')
-    openNewEditor('../templates/template1.html', targetElement)
-  }
   if (newSceneButton) {
-    newSceneButton.addEventListener('click', handleNewScene)
+    newSceneButton.addEventListener('click', () => newScene())
   }
 
   // toolbar - save scene
   const saveSceneButton = document.getElementById('saveScene')
-  const handleSaveScene = () => {
-    saveEditor('editor')
-  }
   if (saveSceneButton) {
-    saveSceneButton.addEventListener('click', handleSaveScene)
+    saveSceneButton.addEventListener('click', () => saveScene())
   }
 
   restoreSettings()
@@ -124,5 +143,5 @@ module.exports = {
   initToolbar,
   showFileBrowser,
   hideFileBrowser,
-  openNewEditor,
+  newScene,
 }
