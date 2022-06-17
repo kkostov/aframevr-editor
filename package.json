@@ -37,7 +37,7 @@
     "dependencies": {
     },
     "devDependencies": {
-        "electron": "^1.4.15",
+        "electron": "^15.5.5",
         "eslint": "^3.16.1",
         "eslint-config-airbnb-base": "^11.1.0",
         "eslint-plugin-import": "^2.2.0"
